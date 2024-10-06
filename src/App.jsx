@@ -156,6 +156,9 @@ const App = () => {
     link.click();
   };
 
+  const clearCanvas = () => {
+    setPixelColors(Array(rows * cols).fill({ color: '#000000', brightness: 1 }));
+  };
 
   return (
     <div
@@ -212,7 +215,6 @@ const App = () => {
         Drawing Options
       </motion.h1>
 
-      {/* Centered Color Picker, Current Color Indicator, and Erase Tool */}
       <div className="flex items-center space-x-8 mt-2">
         <div className="flex flex-col items-center">
           <label className="text-white mb-2">Pick a color:</label>
@@ -240,10 +242,20 @@ const App = () => {
             <span className="text-white font-bold">Erase</span>
           </button>
         </div>
+        {/* Clear Canvas */}
+        <div className="flex flex-col items-center">
+          <label className="text-white mb-2">Clear Canvas:</label>
+          <button
+            className="w-20 h-20 rounded-full border-2 shadow-lg bg-red-600 hover:bg-red-700"
+            onClick={clearCanvas}
+          >
+            <span className="text-white font-bold">Clear</span>
+          </button>
+        </div>
       </div>
 
       {/* Mirror Mode Checkbox */}
-      <div className="mt-6 flex items-center space-x-4">
+      <div className="mt-2 flex items-center space-x-4">
         <input
           type="checkbox"
           id="mirrorMode"
