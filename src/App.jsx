@@ -307,12 +307,25 @@ const [showFillCanvasModal, setShowFillCanvasModal] = useState(false);
 
   // Function to add a new frame for an area
   const addNewFrame = (areaName) => {
+    const area = areas.find(a => a.name === areaName);
+    if (!area) return;
+  
+    const areaWidth = (area.bottomRight % cols) - (area.topLeft % cols) + 1;
+    const areaHeight = Math.floor(area.bottomRight / cols) - Math.floor(area.topLeft / cols) + 1;
+  
     setFrames((prevFrames) => {
       const newFrames = { ...prevFrames };
-      newFrames[areaName] = [...(newFrames[areaName] || []), { id: (newFrames[areaName]?.length || 0) + 1, pixels: Array((newFrames[areaName]?.[0]?.pixels?.length) || (cols * rows)).fill({ color: '#000000', brightness: 1 }) }];
+      newFrames[areaName] = [
+        ...(newFrames[areaName] || []),
+        {
+          id: (newFrames[areaName]?.length || 0) + 1,
+          pixels: Array(areaWidth * areaHeight).fill({ color: '#000000', brightness: 1 }),
+        },
+      ];
       return newFrames;
     });
   };
+  
 
   // Function to delete a frame
   const deleteFrame = (areaName, frameIndex) => {
@@ -909,7 +922,7 @@ const [showFillCanvasModal, setShowFillCanvasModal] = useState(false);
           Export as JSON
         </motion.button>
       </div>
-      <AudioToPythonConverter/>
+      {/* <AudioToPythonConverter/> */}
 
 
       {/* Hidden Canvas for Image Export */}

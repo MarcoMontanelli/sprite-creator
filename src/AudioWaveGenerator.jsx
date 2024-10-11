@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 
-
-
 function AudioToPythonConverter() {
     const [audioFile, setAudioFile] = useState(null);
     const [generatedScript, setGeneratedScript] = useState('');
@@ -34,7 +32,7 @@ function AudioToPythonConverter() {
                     const downsampleFactor = Math.ceil(channelData.length / numColumns);
                     const downsampled = channelData.filter((_, index) => index % downsampleFactor === 0);
                     const normalized = downsampled.map(
-                        (sample) => ((sample + 1) / 2) * 31  // Adjust to 0-31 for a 32-pixel height matrix
+                        (sample) => ((sample + 1) / 2) * 31  // Normalize to 0-31 for matrix height
                     );
 
                     // Generate the Python code
